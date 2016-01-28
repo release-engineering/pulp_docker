@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 Name: pulp-docker
-Version: 1.0.1
+Version: 1.0.3
 Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
@@ -141,6 +141,80 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com> 1.0.3-1
+- Merge branch 'rbarlow_1449' into docker_v2_api (jluza@redhat.com)
+- Merge branch 'docker_v2_api_fixed_constants' into docker_v2_api
+  (jluza@redhat.com)
+- Sync v1 and v2 content when the registry support it. (rbarlow@redhat.com)
+- - fixed empty '{}' format (jluza@redhat.com)
+- - added BLOB_TYPE_ID and MANIFEST_TYPE_ID to constants.py (jluza@redhat.com)
+- Merge branch '1331' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch '1316' into docker_v2_api (rbarlow@redhat.com)
+- Add the ability for users to be able to sync from other Pulp servers.
+  (rbarlow@redhat.com)
+- Fix repo deletion. (rbarlow@redhat.com)
+- Merge pull request #96 from midnightercz/docker_v2_api (rbarlow@redhat.com)
+- Merge pull request #93 from rbarlow/1256 (rbarlow@redhat.com)
+- Merge pull request #92 from rbarlow/1241 (rbarlow@redhat.com)
+- - typo fix (jluza@redhat.com)
+- Reconfigure the httpd vhost to better suit the Docker client.
+  (rbarlow@redhat.com)
+- Form the redirect URL using the Docker API version. (rbarlow@redhat.com)
+- Have each step use its own space inside the working_dir. (rbarlow@redhat.com)
+- Merge branch '1049' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch '1217' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch 'adjust_api_endpoints' into docker_v2_api (rbarlow@redhat.com)
+- Rework the "app" file for Docker v2. (rbarlow@redhat.com)
+- Serve Docker v2 at /pulp/docker/v2 instead of /v2. (rbarlow@redhat.com)
+- Add a migration for users to move to pulp-docker-2 (rbarlow@redhat.com)
+- ref #1219 - repo sections arranged consistent with other plugins.
+  (jortel@redhat.com)
+- ref #1203 - support manifest search, copy and remove. (jortel@redhat.com)
+- Add support for publishing Docker v2 content. (rbarlow@redhat.com)
+- Create a new Blob model. (rbarlow@redhat.com)
+- Add support to sync with Docker v2 repositories. (rbarlow@redhat.com)
+- Merge branch '967' into docker_v2_api (rbarlow@redhat.com)
+- Add a unit for the new Docker metadata type. (rbarlow@redhat.com)
+- Merge pull request #74 from dkliban/add_f22_build (dkliban@redhat.com)
+- Added Fedora 22 to dist list (dkliban@redhat.com)
+
+* Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com>
+- Merge branch 'rbarlow_1449' into docker_v2_api (jluza@redhat.com)
+- Merge branch 'docker_v2_api_fixed_constants' into docker_v2_api
+  (jluza@redhat.com)
+- Sync v1 and v2 content when the registry support it. (rbarlow@redhat.com)
+- - fixed empty '{}' format (jluza@redhat.com)
+- - added BLOB_TYPE_ID and MANIFEST_TYPE_ID to constants.py (jluza@redhat.com)
+- Merge branch '1331' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch '1316' into docker_v2_api (rbarlow@redhat.com)
+- Add the ability for users to be able to sync from other Pulp servers.
+  (rbarlow@redhat.com)
+- Fix repo deletion. (rbarlow@redhat.com)
+- Merge pull request #96 from midnightercz/docker_v2_api (rbarlow@redhat.com)
+- Merge pull request #93 from rbarlow/1256 (rbarlow@redhat.com)
+- Merge pull request #92 from rbarlow/1241 (rbarlow@redhat.com)
+- - typo fix (jluza@redhat.com)
+- Reconfigure the httpd vhost to better suit the Docker client.
+  (rbarlow@redhat.com)
+- Form the redirect URL using the Docker API version. (rbarlow@redhat.com)
+- Have each step use its own space inside the working_dir. (rbarlow@redhat.com)
+- Merge branch '1049' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch '1217' into docker_v2_api (rbarlow@redhat.com)
+- Merge branch 'adjust_api_endpoints' into docker_v2_api (rbarlow@redhat.com)
+- Rework the "app" file for Docker v2. (rbarlow@redhat.com)
+- Serve Docker v2 at /pulp/docker/v2 instead of /v2. (rbarlow@redhat.com)
+- Add a migration for users to move to pulp-docker-2 (rbarlow@redhat.com)
+- ref #1219 - repo sections arranged consistent with other plugins.
+  (jortel@redhat.com)
+- ref #1203 - support manifest search, copy and remove. (jortel@redhat.com)
+- Add support for publishing Docker v2 content. (rbarlow@redhat.com)
+- Create a new Blob model. (rbarlow@redhat.com)
+- Add support to sync with Docker v2 repositories. (rbarlow@redhat.com)
+- Merge branch '967' into docker_v2_api (rbarlow@redhat.com)
+- Add a unit for the new Docker metadata type. (rbarlow@redhat.com)
+- Merge pull request #74 from dkliban/add_f22_build (dkliban@redhat.com)
+- Added Fedora 22 to dist list (dkliban@redhat.com)
+
 * Fri Jan 16 2015 Chris Duryee <cduryee@redhat.com> 0.2.2-1
 - 1148556 - Validate repo-registry-id to ensure compatibility with Docker
   (asmacdo@gmail.com)
