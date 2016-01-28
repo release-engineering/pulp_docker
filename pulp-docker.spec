@@ -3,7 +3,7 @@
 
 Name: pulp-docker
 Version: 1.0.4
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
 License: GPLv2
@@ -141,6 +141,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com>
+- - id fix (jluza@redhat.com)
+
 * Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com> 1.0.4-1
 - bumped version 
 
