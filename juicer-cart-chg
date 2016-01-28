@@ -1,0 +1,76 @@
+#!/usr/bin/python
+
+import json
+import os.path
+import optparse
+import subprocess
+import sys
+import urlparse
+
+from rpmUtils.miscutils import splitFilename
+
+
+USAGE="program <CHG> version release"
+
+def make_parser():
+    parser = optparse.OptionParser(usage=USAGE)
+    parser.add_option("--just-pkglist", action="store_true")
+    return parser
+
+
+
+#                      srpm        , version, release        , arch    , rpms
+PULP_DOCKER_RPMS = [("pulp-docker", "noarch", ["pulp-docker-plugins", "python-pulp-docker-common"])]
+
+empty_cart = {"_id": "", "current_env": "qa", "repos_items":{"pulp-2_6-el6app":[], "pulp-2_6-el7app":[]}}
+
+if __name__ == "__main__":
+    parser = make_parser()
+    (options, args) = parser.parse_args()
+    if len(args)<3:
+        print >> sys.stderr, "at least 3 arguments are needed", "\n", USAGE
+    out_cart = args[0]
+    version = args[1]
+    release = args[2]
+
+    p = subprocess.Popen(['juicer', 'cart', 'list'], stdout=subprocess.PIPE)
+    cart_list = [x.strip() for x in p.stdout.read()]
+    if not out_cart in cart_list:
+        json.dump(empty_cart, open(os.path.expanduser("~/.config/juicer/carts/%s.json" % out_cart), "w"))
+    else:
+        p = subprocess.Popen(['rm', "-r", os.path.expanduser("~/.config/juicer/carts/%s-remotes" % out_cart)])
+        p.wait()
+        p = subprocess.Popen(['juicer', 'cart', 'delete', out_cart])
+        p.wait()
+
+    epoch = "app.el7eng"
+    pulp_docker_rpms = []
+    for srpm, arch, rpms in PULP_DOCKER_RPMS:
+        for rpm in rpms:
+            rpm_fname = "%s-%s-%s.%s.%s.rpm" % (rpm, version, release, epoch, arch)
+            pulp_docker_rpms.append(os.path.join("/mnt/redhat/brewroot/packages/",
+                                                 srpm, version, "%s.%s" % (release, epoch), arch,
+                                                 rpm_fname))
+    p = subprocess.Popen(["juicer", "cart", "create", out_cart, "-r",
+                          "pulp-2_6-el7"] + pulp_docker_rpms)
+    p.wait()
+
+
+    epoch = "app.el6eng"
+    pulp_docker_rpms = []
+    for srpm, arch, rpms in PULP_DOCKER_RPMS:
+        for rpm in rpms:
+            rpm_fname = "%s-%s-%s.%s.%s.rpm" % (rpm, version, release, epoch, arch)
+            pulp_docker_rpms.append(os.path.join("/mnt/redhat/brewroot/packages/",
+                                                 srpm, version, "%s.%s" % (release, epoch), arch,
+                                                 rpm_fname))
+
+    p = subprocess.Popen(["juicer", "cart", "create", out_cart, "-r",
+                          "pulp-2_6-el7"] + pulp_docker_rpms)
+    p.wait()
+
+    if not options.just_pkglist:
+        p = subprocess.Popen(['juicer', 'cart', 'push', out_cart, "--in", "re"])
+        p.wait()
+        p = subprocess.Popen(['juicer', 'cart', 'push', out_cart, "--in", "qa"])
+        p.wait()
