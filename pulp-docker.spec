@@ -2,7 +2,7 @@
 %{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 
 Name: pulp-docker
-Version: 1.0.3
+Version: 1.0.4
 Release: 1%{?dist}
 Summary: Support for Docker layers in the Pulp platform
 Group: Development/Languages
@@ -141,6 +141,9 @@ pulp-admin extensions for docker support
 
 
 %changelog
+* Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com> 1.0.4-1
+- bumped version 
+
 * Thu Jan 28 2016 Jindrich Luza <jluza@redhat.com> 1.0.3-1
 - Merge branch 'rbarlow_1449' into docker_v2_api (jluza@redhat.com)
 - Merge branch 'docker_v2_api_fixed_constants' into docker_v2_api
