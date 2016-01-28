@@ -133,7 +133,7 @@ class PublishManifestsStep(publish_step.UnitPublishStep):
         :type unit:  pulp_docker.common.models.Blob
         """
         # Keep track of the "latest" Manifest we've seen by looking for the one with the newest id
-        if 'latest' not in self.parent.tags or unit._id > self.parent.tags['latest']._id:
+        if 'latest' not in self.parent.tags or unit.id > self.parent.tags['latest'].id:
             self.parent.tags['latest'] = unit
         # Keep track of the newest Manifest we've seen with this tag by looking for the one with the
         # newest id
